@@ -29,7 +29,7 @@ public class LibraryApp {
     public void run() {
         while (running) {
             showMenu();
-            int next_input = Integer.parseInt(appScanner.nextLine());
+            int next_input = requestIdCommand(true);
             switch (next_input) {
                 case 1:
                     clearTerminal();
@@ -65,6 +65,11 @@ public class LibraryApp {
                     clearTerminal();
                     System.out.println("!!!Goodbye!!!");
                     running = false;
+                    break;
+                default:
+                    clearTerminal();
+                    System.out.println("!!! Command not founded !!!");
+                    waitForEnter();
                     break;
             }
         }
@@ -189,7 +194,7 @@ public class LibraryApp {
 
     private void borrowBook() {
         System.out.println("Book's id:");
-        int input = requestId();
+        int input = requestIdCommand(false);
         boolean founded = false;
 
         for (Book book : books) {
@@ -211,7 +216,7 @@ public class LibraryApp {
 
     private void returnBook() {
         System.out.println("Book's id:");
-        int input = requestId();
+        int input = requestIdCommand(false);
         boolean founded = false;
 
         for (Book book : books) {
@@ -234,7 +239,7 @@ public class LibraryApp {
 
     private void deleteBookId() {
         System.out.println("Book's id:");
-        int input = requestId();
+        int input = requestIdCommand(false);
         boolean founded = false;
 
         for (int i = 0; i < books.size(); i++) {
@@ -252,7 +257,7 @@ public class LibraryApp {
         }
     }
 
-    private int requestId() {
+    private int requestIdCommand(boolean is_command) {
         Integer input = null;
         while (input == null) {
             try {
@@ -263,7 +268,11 @@ public class LibraryApp {
                     input = temp;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Id should be a positive integer!");
+                if (!is_command) {
+                    System.out.println("Id should be a positive integer!");
+                } else {
+                    System.out.println(("Command should be integer 1-7!"));
+                }
             }
         }
         return input;

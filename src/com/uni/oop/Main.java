@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(){
+    static void main(){
         List<Book> testBooks = new ArrayList<>();
 
         testBooks.add(new Book("Clean Code", "Robert C. Martin", 2008));
